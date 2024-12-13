@@ -1,15 +1,15 @@
-package com.example.powershell_terminal.model;
+package com.example.terminal_powershell.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class Tab {
+public class Tab {
     private Long id;
     private String title;
     private boolean isActive;
     private List<Command> commands;
 
-    public Tab(String title) {
+    public Tab() {
         this.title = title;
         this.commands = new ArrayList<>();
         this.isActive = false;
@@ -25,6 +25,10 @@ class Tab {
 
     public void setActive(boolean isActive) {
         this.isActive = isActive;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getTitle() {

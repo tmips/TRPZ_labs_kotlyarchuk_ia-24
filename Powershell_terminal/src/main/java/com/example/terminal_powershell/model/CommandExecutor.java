@@ -1,8 +1,8 @@
-package com.example.powershell_terminal.model;
+package com.example.terminal_powershell.model;
 
 import java.util.List;
 
-class CommandExecutor {
+public class CommandExecutor {
     private Long id;
     private Command command;
     private String output;

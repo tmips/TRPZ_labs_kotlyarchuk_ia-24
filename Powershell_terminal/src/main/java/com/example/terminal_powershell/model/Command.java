@@ -1,4 +1,4 @@
-package com.example.powershell_terminal.model;
+package com.example.terminal_powershell.model;
 
 public class Command {
     private Long id;

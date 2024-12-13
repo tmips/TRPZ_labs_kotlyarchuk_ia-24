@@ -1,11 +1,9 @@
-package com.example.powershell_terminal.model;
-
-import javafx.scene.control.Tab;
+package com.example.terminal_powershell.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class FileExecutor {
+public class FileExecutor {
     private Long id;
     private String filePath;
     private String fileType;

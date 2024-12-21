@@ -14,6 +14,7 @@ public class CommandController {
         this.commandService = commandService;
     }
 
+    @PostMapping("/execute")
     public ResponseEntity<String> executeCommand(@PathVariable Long id, @RequestBody Command command) {
         try {
             String result = commandService.executeCommand(command);

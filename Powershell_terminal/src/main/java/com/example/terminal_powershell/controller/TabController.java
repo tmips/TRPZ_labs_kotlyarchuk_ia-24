@@ -1,5 +1,8 @@
 package com.example.terminal_powershell.controller;
 
+import com.example.terminal_powershell.abstract_factory.ThemeFactory;
+import com.example.terminal_powershell.abstract_factory.dark_theme.DarkThemeFactory;
+import com.example.terminal_powershell.abstract_factory.light_theme.LightThemeFactory;
 import com.example.terminal_powershell.command.*;
 import com.example.terminal_powershell.services.TabService;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +20,27 @@ public class TabController {
     private final TabService tabService;
     private final CommandInvoker commandInvoker;
 
+
     public TabController(TabService tabService) {
         this.tabService = tabService;
         this.commandInvoker = new CommandInvoker();
+    }
+
+    @PostMapping("/change-theme")
+    public ResponseEntity<String> changeTheme(@RequestBody Map<String, Object> request) {
+        Long tabId = Long.valueOf(request.get("tabId").toString());
+        String theme = request.get("theme").toString();
+
+        ThemeFactory themeFactory;
+        if ("light".equalsIgnoreCase(theme)) {
+            themeFactory = new LightThemeFactory();
+        } else if ("dark".equalsIgnoreCase(theme)) {
+            themeFactory = new DarkThemeFactory();
+        } else {
+            return ResponseEntity.badRequest().body("Invalid theme: " + theme);
+        }
+        tabService.applyTheme(tabId, themeFactory);
+        return ResponseEntity.ok("Theme changed to: " + theme + " for tab " + tabId);
     }
 
     @PostMapping("/create")

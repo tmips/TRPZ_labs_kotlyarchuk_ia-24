@@ -1,5 +1,9 @@
 package com.example.terminal_powershell.services;
 
+import com.example.terminal_powershell.abstract_factory.BackgroundColor;
+import com.example.terminal_powershell.abstract_factory.TextColor;
+import com.example.terminal_powershell.abstract_factory.TextSize;
+import com.example.terminal_powershell.abstract_factory.ThemeFactory;
 import com.example.terminal_powershell.model.Tab;
 import com.example.terminal_powershell.repositories.TabRepository;
 import org.springframework.stereotype.Service;
@@ -11,6 +15,21 @@ public class TabService {
 
     public TabService(TabRepository tabRepository) {
         this.tabRepository = tabRepository;
+    }
+
+    public void applyTheme(Long tabId, ThemeFactory themeFactory) {
+        TextColor textColor = themeFactory.createTextColor();
+        BackgroundColor backgroundColor = themeFactory.createBackgroundColor();
+        TextSize textSize = themeFactory.createTextSize();
+
+        changeTextColor(tabId, textColor.getTextColor());
+        changeBackgroundColor(tabId, backgroundColor.getColor());
+        changeTextSize(tabId, textSize.getTextSize());
+
+        System.out.println("Applied theme to tab " + tabId + ": " +
+                "Text color = " + textColor.getTextColor() +
+                ", Background color = " + backgroundColor.getColor() +
+                ", Font size = " + textSize.getTextSize());
     }
 
     public void createTab(String tabName) {
